@@ -1,0 +1,130 @@
+meta {
+  name: Get status details for a video processing job.
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.video.getJobStatus
+  body: none
+  auth: bearer
+}
+
+params:query {
+  jobId: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for videoGetJobStatus
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.video.getJobStatus
+    method: GET
+    mode: none
+    params:query: {
+      jobId: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "jobStatus": {
+            "jobId": "example-jobId",
+            "did": "did:plc:example123abc",
+            "state": "JOB_STATE_COMPLETED",
+            "progress": 50,
+            "blob": "example-blob",
+            "error": "example-error",
+            "message": "example-message"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.video.getJobStatus
+    method: GET
+    mode: none
+    params:query: {
+      jobId: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.video.getJobStatus
+    method: GET
+    mode: none
+    params:query: {
+      jobId: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

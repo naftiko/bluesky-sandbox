@@ -1,0 +1,129 @@
+meta {
+  name: Administrative action to update an account's email.
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.admin.updateAccountEmail
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "account": "naftiko",
+    "email": "kinlane@naftiko.io"
+  }
+}
+
+example {
+  name: 200 Response (Example request for adminUpdateAccountEmail)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.updateAccountEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "account": "user.bsky.social",
+        "email": "user@example.com"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for adminUpdateAccountEmail)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.updateAccountEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "account": "user.bsky.social",
+        "email": "user@example.com"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for adminUpdateAccountEmail)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.updateAccountEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "account": "user.bsky.social",
+        "email": "user@example.com"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

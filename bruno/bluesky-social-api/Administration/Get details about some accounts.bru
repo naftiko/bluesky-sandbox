@@ -1,0 +1,151 @@
+meta {
+  name: Get details about some accounts.
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.admin.getAccountInfos
+  body: none
+  auth: bearer
+}
+
+params:query {
+  dids: did:plc:example123abc,did:plc:example24abc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for adminGetAccountInfos
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.getAccountInfos
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "infos": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "email": "user@example.com",
+              "relatedRecords": [],
+              "invitedBy": {
+                "code": "example-code",
+                "available": 50,
+                "disabled": true,
+                "forAccount": "example-forAccount",
+                "createdBy": "example-createdBy",
+                "createdAt": "2024-01-15T12:00:00.000Z",
+                "uses": []
+              },
+              "invites": [
+                {
+                  "code": {},
+                  "available": {},
+                  "disabled": {},
+                  "forAccount": {},
+                  "createdBy": {},
+                  "createdAt": {},
+                  "uses": {}
+                }
+              ],
+              "invitesDisabled": true
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.getAccountInfos
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.getAccountInfos
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

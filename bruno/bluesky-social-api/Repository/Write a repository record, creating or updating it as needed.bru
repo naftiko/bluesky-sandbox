@@ -1,0 +1,160 @@
+meta {
+  name: Write a repository record, creating or updating it as needed.
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.repo.putRecord
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "repo": "",
+    "collection": "",
+    "rkey": "",
+    "validate": false,
+    "record": "",
+    "swapRecord": "",
+    "swapCommit": ""
+  }
+}
+
+example {
+  name: Successful response for repoPutRecord (Example request for repoPutRecord)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.putRecord
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "repo": "user.bsky.social",
+        "collection": "app.bsky.feed.post",
+        "rkey": "example-rkey",
+        "record": {},
+        "validate": true,
+        "swapRecord": "bafyreiabc123example",
+        "swapCommit": "bafyreiabc123example"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+          "cid": "bafyreiabc123example",
+          "commit": {
+            "cid": "bafyreiabc123example",
+            "rev": "example-rev"
+          },
+          "validationStatus": "valid"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for repoPutRecord)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.putRecord
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "repo": "user.bsky.social",
+        "collection": "app.bsky.feed.post",
+        "rkey": "example-rkey",
+        "record": {},
+        "validate": true,
+        "swapRecord": "bafyreiabc123example",
+        "swapCommit": "bafyreiabc123example"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for repoPutRecord)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.putRecord
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "repo": "user.bsky.social",
+        "collection": "app.bsky.feed.post",
+        "rkey": "example-rkey",
+        "record": {},
+        "validate": true,
+        "swapRecord": "bafyreiabc123example",
+        "swapCommit": "bafyreiabc123example"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,161 @@
+meta {
+  name: Get details about a moderation event.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.moderation.getEvent
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneModerationGetEvent
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getEvent
+    method: GET
+    mode: none
+    params:query: {
+      id: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 50,
+          "event": {
+            "comment": "example-comment",
+            "durationInHours": 50,
+            "acknowledgeAccountSubjects": true
+          },
+          "subject": {
+            "did": "did:plc:example123abc",
+            "handle": "user.bsky.social",
+            "relatedRecords": [],
+            "indexedAt": "2024-01-15T12:00:00.000Z",
+            "moderation": {
+              "subjectStatus": {}
+            },
+            "email": "user@example.com",
+            "invitedBy": {
+              "code": {},
+              "available": {},
+              "disabled": {},
+              "forAccount": {},
+              "createdBy": {},
+              "createdAt": {},
+              "uses": {}
+            },
+            "invitesDisabled": true
+          },
+          "subjectBlobs": [
+            {
+              "cid": "bafyreiabc123example",
+              "mimeType": "example-mimeType",
+              "size": 50,
+              "createdAt": "2024-01-15T12:00:00.000Z",
+              "details": {},
+              "moderation": {
+                "subjectStatus": {}
+              }
+            }
+          ],
+          "createdBy": "did:plc:example123abc",
+          "createdAt": "2024-01-15T12:00:00.000Z"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getEvent
+    method: GET
+    mode: none
+    params:query: {
+      id: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getEvent
+    method: GET
+    mode: none
+    params:query: {
+      id: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

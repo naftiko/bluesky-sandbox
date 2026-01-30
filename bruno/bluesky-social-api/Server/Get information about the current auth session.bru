@@ -1,0 +1,116 @@
+meta {
+  name: Get information about the current auth session.
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.server.getSession
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for serverGetSession
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.getSession
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "handle": "user.bsky.social",
+          "did": "did:plc:example123abc",
+          "email": "user@example.com",
+          "emailConfirmed": true,
+          "emailAuthFactor": true,
+          "didDoc": {},
+          "active": true,
+          "status": "takendown"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.getSession
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.getSession
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

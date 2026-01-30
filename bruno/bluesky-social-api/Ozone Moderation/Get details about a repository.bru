@@ -1,0 +1,164 @@
+meta {
+  name: Get details about a repository.
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepo
+  body: none
+  auth: bearer
+}
+
+params:query {
+  did: did:plc:example123abc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneModerationGetRepo
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepo
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "did": "did:plc:example123abc",
+          "handle": "user.bsky.social",
+          "relatedRecords": [],
+          "indexedAt": "2024-01-15T12:00:00.000Z",
+          "moderation": {
+            "subjectStatus": {
+              "id": 50,
+              "subject": {},
+              "createdAt": "2024-01-15T12:00:00.000Z",
+              "updatedAt": "2024-01-15T12:00:00.000Z",
+              "reviewState": {},
+              "hosting": {},
+              "subjectBlobCids": [],
+              "subjectRepoHandle": "at://did:plc:example123/app.bsky.feed.post/abc123"
+            }
+          },
+          "email": "user@example.com",
+          "labels": [
+            {
+              "src": "did:plc:example123abc",
+              "uri": "https://example.com/resource",
+              "val": "example-val",
+              "cts": "2024-01-15T12:00:00.000Z",
+              "ver": 50,
+              "cid": "bafyreiabc123example",
+              "neg": true,
+              "exp": "2024-01-15T12:00:00.000Z"
+            }
+          ],
+          "invitedBy": {
+            "code": "example-code",
+            "available": 50,
+            "disabled": true,
+            "forAccount": "example-forAccount",
+            "createdBy": "example-createdBy",
+            "createdAt": "2024-01-15T12:00:00.000Z",
+            "uses": [
+              {
+                "usedBy": {},
+                "usedAt": {}
+              }
+            ]
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepo
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepo
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

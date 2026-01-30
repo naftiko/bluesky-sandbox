@@ -1,0 +1,132 @@
+meta {
+  name: Returns a list of missing blobs for the requesting account.
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.repo.listMissingBlobs
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for repoListMissingBlobs
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.listMissingBlobs
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "blobs": [
+            {
+              "cid": "bafyreiabc123example",
+              "recordUri": "at://did:plc:example123/app.bsky.feed.post/abc123"
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.listMissingBlobs
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.listMissingBlobs
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

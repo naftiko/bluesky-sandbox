@@ -1,0 +1,171 @@
+meta {
+  name: Update the service-specific admin status of a subject (account, record, or blob).
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.admin.updateSubjectStatus
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "subject": "",
+    "takedown": {
+      "applied": false,
+      "ref": ""
+    },
+    "deactivated": {}
+  }
+}
+
+example {
+  name: Successful response for adminUpdateSubjectStatus (Example request for adminUpdateSubjectStatus)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.updateSubjectStatus
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "takedown": {
+          "applied": true,
+          "ref": "example-ref"
+        },
+        "deactivated": {
+          "applied": true,
+          "ref": "example-ref"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "subject": {
+            "did": "did:plc:example123abc"
+          },
+          "takedown": {
+            "applied": true,
+            "ref": "example-ref"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for adminUpdateSubjectStatus)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.updateSubjectStatus
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "takedown": {
+          "applied": true,
+          "ref": "example-ref"
+        },
+        "deactivated": {
+          "applied": true,
+          "ref": "example-ref"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for adminUpdateSubjectStatus)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.updateSubjectStatus
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "takedown": {
+          "applied": true,
+          "ref": "example-ref"
+        },
+        "deactivated": {
+          "applied": true,
+          "ref": "example-ref"
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

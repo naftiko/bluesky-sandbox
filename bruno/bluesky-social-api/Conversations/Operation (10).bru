@@ -1,0 +1,157 @@
+meta {
+  name: Operation (10)
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/xrpc/chat.bsky.convo.unmuteConvo
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "convoId": ""
+  }
+}
+
+example {
+  name: Successful response for chatConvoUnmuteConvo (Example request for chatConvoUnmuteConvo)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.unmuteConvo
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "convoId": "example-convoId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "convo": {
+            "id": "example-id",
+            "rev": "example-rev",
+            "members": [
+              {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "viewer": {},
+                "labels": [],
+                "chatDisabled": true
+              }
+            ],
+            "muted": true,
+            "unreadCount": 50,
+            "lastMessage": {
+              "id": "example-id",
+              "rev": "example-rev",
+              "text": "Example text content",
+              "sender": {},
+              "sentAt": "2024-01-15T12:00:00.000Z",
+              "facets": [],
+              "embed": {}
+            },
+            "opened": true
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for chatConvoUnmuteConvo)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.unmuteConvo
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "convoId": "example-convoId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for chatConvoUnmuteConvo)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.unmuteConvo
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "convoId": "example-convoId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

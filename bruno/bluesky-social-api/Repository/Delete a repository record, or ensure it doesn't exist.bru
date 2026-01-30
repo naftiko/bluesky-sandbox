@@ -1,0 +1,149 @@
+meta {
+  name: Delete a repository record, or ensure it doesn't exist.
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.repo.deleteRecord
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "repo": "",
+    "collection": "",
+    "rkey": "",
+    "swapRecord": "",
+    "swapCommit": ""
+  }
+}
+
+example {
+  name: Successful response for repoDeleteRecord (Example request for repoDeleteRecord)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.deleteRecord
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "repo": "user.bsky.social",
+        "collection": "app.bsky.feed.post",
+        "rkey": "example-rkey",
+        "swapRecord": "bafyreiabc123example",
+        "swapCommit": "bafyreiabc123example"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "commit": {
+            "cid": "bafyreiabc123example",
+            "rev": "example-rev"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for repoDeleteRecord)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.deleteRecord
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "repo": "user.bsky.social",
+        "collection": "app.bsky.feed.post",
+        "rkey": "example-rkey",
+        "swapRecord": "bafyreiabc123example",
+        "swapCommit": "bafyreiabc123example"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for repoDeleteRecord)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.deleteRecord
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "repo": "user.bsky.social",
+        "collection": "app.bsky.feed.post",
+        "rkey": "example-rkey",
+        "swapRecord": "bafyreiabc123example",
+        "swapCommit": "bafyreiabc123example"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

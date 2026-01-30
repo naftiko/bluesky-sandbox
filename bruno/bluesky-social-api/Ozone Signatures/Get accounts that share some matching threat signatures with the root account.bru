@@ -1,0 +1,150 @@
+meta {
+  name: Get accounts that share some matching threat signatures with the root account.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.signature.findRelatedAccounts
+  body: none
+  auth: bearer
+}
+
+params:query {
+  did: did:plc:example123abc
+  ~cursor: a335691ff1cdsxdc
+  ~limit: 25
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneSignatureFindRelatedAccounts
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.signature.findRelatedAccounts
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+      ~cursor: a335691ff1cdsxdc
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "accounts": [
+            {
+              "account": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "indexedAt": "2024-01-15T12:00:00.000Z",
+                "email": "user@example.com",
+                "relatedRecords": [],
+                "invitedBy": {},
+                "invites": [],
+                "invitesDisabled": true
+              },
+              "similarities": [
+                {
+                  "property": {},
+                  "value": {}
+                }
+              ]
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.signature.findRelatedAccounts
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+      ~cursor: a335691ff1cdsxdc
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.signature.findRelatedAccounts
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+      ~cursor: a335691ff1cdsxdc
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

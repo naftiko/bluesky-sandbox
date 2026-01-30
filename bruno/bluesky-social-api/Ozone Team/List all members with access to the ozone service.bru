@@ -1,0 +1,146 @@
+meta {
+  name: List all members with access to the ozone service.
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.team.listMembers
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneTeamListMembers
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.listMembers
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "members": [
+            {
+              "did": "did:plc:example123abc",
+              "role": "#roleAdmin",
+              "disabled": true,
+              "profile": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "description": "This is an example description.",
+                "avatar": "https://example.com/resource",
+                "banner": "https://example.com/resource",
+                "followersCount": 50,
+                "followsCount": 50
+              },
+              "createdAt": "2024-01-15T12:00:00.000Z",
+              "updatedAt": "2024-01-15T12:00:00.000Z",
+              "lastUpdatedBy": "example-lastUpdatedBy"
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.listMembers
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.listMembers
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

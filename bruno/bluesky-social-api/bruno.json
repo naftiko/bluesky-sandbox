@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "bluesky-social-api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

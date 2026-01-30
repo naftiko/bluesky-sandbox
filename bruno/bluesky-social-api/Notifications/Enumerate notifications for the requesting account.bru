@@ -1,0 +1,157 @@
+meta {
+  name: Enumerate notifications for the requesting account.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.notification.listNotifications
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~limit: 25
+  ~priority: 
+  ~cursor: a335691ff1cdsxdc
+  ~seenAt: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for notificationListNotifications
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.listNotifications
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~priority: 
+      ~cursor: a335691ff1cdsxdc
+      ~seenAt: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "notifications": [
+            {
+              "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "cid": "bafyreiabc123example",
+              "author": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "description": "This is an example description.",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "indexedAt": "2024-01-15T12:00:00.000Z",
+                "createdAt": "2024-01-15T12:00:00.000Z"
+              },
+              "reason": "like",
+              "record": {},
+              "isRead": true,
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "reasonSubject": "at://did:plc:example123/app.bsky.feed.post/abc123"
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ",
+          "priority": true,
+          "seenAt": "2024-01-15T12:00:00.000Z"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.listNotifications
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~priority: 
+      ~cursor: a335691ff1cdsxdc
+      ~seenAt: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.listNotifications
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~priority: 
+      ~cursor: a335691ff1cdsxdc
+      ~seenAt: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

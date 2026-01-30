@@ -1,0 +1,126 @@
+meta {
+  name: Count the number of unread notifications for the requesting account.
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.notification.getUnreadCount
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~priority: 
+  ~seenAt: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for notificationGetUnreadCount
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.getUnreadCount
+    method: GET
+    mode: none
+    params:query: {
+      ~priority: 
+      ~seenAt: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "count": 50
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.getUnreadCount
+    method: GET
+    mode: none
+    params:query: {
+      ~priority: 
+      ~seenAt: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.getUnreadCount
+    method: GET
+    mode: none
+    params:query: {
+      ~priority: 
+      ~seenAt: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,159 @@
+meta {
+  name: Get a list of quotes for a given post.
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.feed.getQuotes
+  body: none
+  auth: bearer
+}
+
+params:query {
+  uri: 
+  ~cid: 
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for feedGetQuotes
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getQuotes
+    method: GET
+    mode: none
+    params:query: {
+      uri: 
+      ~cid: 
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+          "posts": [
+            {
+              "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "cid": "bafyreiabc123example",
+              "author": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "viewer": {},
+                "labels": [],
+                "createdAt": "2024-01-15T12:00:00.000Z"
+              },
+              "record": {},
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "embed": {
+                "images": {}
+              },
+              "replyCount": 50,
+              "repostCount": 50
+            }
+          ],
+          "cid": "bafyreiabc123example",
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getQuotes
+    method: GET
+    mode: none
+    params:query: {
+      uri: 
+      ~cid: 
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getQuotes
+    method: GET
+    mode: none
+    params:query: {
+      uri: 
+      ~cid: 
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

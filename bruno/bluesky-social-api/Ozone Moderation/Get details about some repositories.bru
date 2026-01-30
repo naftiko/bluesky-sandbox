@@ -1,0 +1,143 @@
+meta {
+  name: Get details about some repositories.
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepos
+  body: none
+  auth: bearer
+}
+
+params:query {
+  dids: did:plc:example123abc,did:plc:example24abc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneModerationGetRepos
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepos
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "repos": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "relatedRecords": [],
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "moderation": {
+                "subjectStatus": {}
+              },
+              "email": "user@example.com",
+              "labels": [],
+              "invitedBy": {
+                "code": {},
+                "available": {},
+                "disabled": {},
+                "forAccount": {},
+                "createdBy": {},
+                "createdAt": {},
+                "uses": {}
+              }
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepos
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.getRepos
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

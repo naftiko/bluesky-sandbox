@@ -1,0 +1,154 @@
+meta {
+  name: Get a list of reposts for a given post.
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.feed.getRepostedBy
+  body: none
+  auth: bearer
+}
+
+params:query {
+  uri: 
+  ~cid: 
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for feedGetRepostedBy
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getRepostedBy
+    method: GET
+    mode: none
+    params:query: {
+      uri: 
+      ~cid: 
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+          "repostedBy": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "displayName": "Example Name",
+              "description": "This is an example description.",
+              "avatar": "https://example.com/resource",
+              "associated": {
+                "lists": 50,
+                "feedgens": 50,
+                "starterPacks": 50,
+                "labeler": true,
+                "chat": {}
+              },
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "createdAt": "2024-01-15T12:00:00.000Z"
+            }
+          ],
+          "cid": "bafyreiabc123example",
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getRepostedBy
+    method: GET
+    mode: none
+    params:query: {
+      uri: 
+      ~cid: 
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getRepostedBy
+    method: GET
+    mode: none
+    params:query: {
+      uri: 
+      ~cid: 
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

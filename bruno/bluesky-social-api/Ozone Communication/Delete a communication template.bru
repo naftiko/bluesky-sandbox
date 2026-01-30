@@ -1,0 +1,125 @@
+meta {
+  name: Delete a communication template.
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.communication.deleteTemplate
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "id": "example-id"
+  }
+}
+
+example {
+  name: 200 Response (Example request for ozoneCommunicationDeleteTemplate)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.communication.deleteTemplate
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "id": "example-id"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneCommunicationDeleteTemplate)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.communication.deleteTemplate
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "id": "example-id"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneCommunicationDeleteTemplate)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.communication.deleteTemplate
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "id": "example-id"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,133 @@
+meta {
+  name: Update an account's email.
+  type: http
+  seq: 25
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.updateEmail
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "kinlane@naftiko.io",
+    "emailAuthFactor": false,
+    "token": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for serverUpdateEmail)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.updateEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "email": "user@example.com",
+        "emailAuthFactor": true,
+        "token": "example-token"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverUpdateEmail)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.updateEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "email": "user@example.com",
+        "emailAuthFactor": true,
+        "token": "example-token"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverUpdateEmail)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.updateEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "email": "user@example.com",
+        "emailAuthFactor": true,
+        "token": "example-token"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

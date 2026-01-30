@@ -1,0 +1,115 @@
+meta {
+  name: Refresh an authentication session.
+  type: http
+  seq: 17
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.refreshSession
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for serverRefreshSession
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.refreshSession
+    method: POST
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "accessJwt": "example-accessJwt",
+          "refreshJwt": "example-refreshJwt",
+          "handle": "user.bsky.social",
+          "did": "did:plc:example123abc",
+          "didDoc": {},
+          "active": true,
+          "status": "takendown"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.refreshSession
+    method: POST
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.refreshSession
+    method: POST
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

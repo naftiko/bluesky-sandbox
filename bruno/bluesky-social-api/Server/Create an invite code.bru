@@ -1,0 +1,134 @@
+meta {
+  name: Create an invite code.
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCode
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "useCount": 0,
+    "forAccount": ""
+  }
+}
+
+example {
+  name: Successful response for serverCreateInviteCode (Example request for serverCreateInviteCode)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCode
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "useCount": 50,
+        "forAccount": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "code": "example-code"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverCreateInviteCode)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCode
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "useCount": 50,
+        "forAccount": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverCreateInviteCode)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCode
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "useCount": 50,
+        "forAccount": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

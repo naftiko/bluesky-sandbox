@@ -1,0 +1,144 @@
+meta {
+  name: Enumerates accounts that the requesting account (actor) currently has muted.
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.graph.getMutes
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for graphGetMutes
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getMutes
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "mutes": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "displayName": "Example Name",
+              "description": "This is an example description.",
+              "avatar": "https://example.com/resource",
+              "associated": {
+                "lists": 50,
+                "feedgens": 50,
+                "starterPacks": 50,
+                "labeler": true,
+                "chat": {}
+              },
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "createdAt": "2024-01-15T12:00:00.000Z"
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getMutes
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getMutes
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

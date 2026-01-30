@@ -1,0 +1,160 @@
+meta {
+  name: Get list of accounts that matches your search query.
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.admin.searchAccounts
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~email: kinlane@naftiko.io
+  ~cursor: a335691ff1cdsxdc
+  ~limit: 25
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for adminSearchAccounts
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.searchAccounts
+    method: GET
+    mode: none
+    params:query: {
+      ~email: kinlane@naftiko.io
+      ~cursor: a335691ff1cdsxdc
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "accounts": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "email": "user@example.com",
+              "relatedRecords": [],
+              "invitedBy": {
+                "code": "example-code",
+                "available": 50,
+                "disabled": true,
+                "forAccount": "example-forAccount",
+                "createdBy": "example-createdBy",
+                "createdAt": "2024-01-15T12:00:00.000Z",
+                "uses": []
+              },
+              "invites": [
+                {
+                  "code": {},
+                  "available": {},
+                  "disabled": {},
+                  "forAccount": {},
+                  "createdBy": {},
+                  "createdAt": {},
+                  "uses": {}
+                }
+              ],
+              "invitesDisabled": true
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.searchAccounts
+    method: GET
+    mode: none
+    params:query: {
+      ~email: kinlane@naftiko.io
+      ~cursor: a335691ff1cdsxdc
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.searchAccounts
+    method: GET
+    mode: none
+    params:query: {
+      ~email: kinlane@naftiko.io
+      ~cursor: a335691ff1cdsxdc
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

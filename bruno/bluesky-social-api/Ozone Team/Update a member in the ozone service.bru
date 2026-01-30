@@ -1,0 +1,153 @@
+meta {
+  name: Update a member in the ozone service.
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.team.updateMember
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    did": "did:plc:example123abc",
+    "disabled": false,
+    "role": ""
+  }
+}
+
+example {
+  name: Successful response for ozoneTeamUpdateMember (Example request for ozoneTeamUpdateMember)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.updateMember
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc",
+        "disabled": true,
+        "role": "tools.ozone.team.defs#roleAdmin"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "did": "did:plc:example123abc",
+          "role": "#roleAdmin",
+          "disabled": true,
+          "profile": {
+            "did": "did:plc:example123abc",
+            "handle": "user.bsky.social",
+            "displayName": "Example Name",
+            "description": "This is an example description.",
+            "avatar": "https://example.com/resource",
+            "banner": "https://example.com/resource",
+            "followersCount": 50,
+            "followsCount": 50
+          },
+          "createdAt": "2024-01-15T12:00:00.000Z",
+          "updatedAt": "2024-01-15T12:00:00.000Z",
+          "lastUpdatedBy": "example-lastUpdatedBy"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneTeamUpdateMember)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.updateMember
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc",
+        "disabled": true,
+        "role": "tools.ozone.team.defs#roleAdmin"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneTeamUpdateMember)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.updateMember
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc",
+        "disabled": true,
+        "role": "tools.ozone.team.defs#roleAdmin"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

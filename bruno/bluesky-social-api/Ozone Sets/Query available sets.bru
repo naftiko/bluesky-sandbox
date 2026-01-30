@@ -1,0 +1,147 @@
+meta {
+  name: Query available sets
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.set.querySets
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+  ~namePrefix: 
+  ~sortBy: 
+  ~sortDirection: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneSetQuerySets
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.set.querySets
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+      ~namePrefix: 
+      ~sortBy: 
+      ~sortDirection: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "sets": [
+            {
+              "name": "Example Name",
+              "setSize": 50,
+              "createdAt": "2024-01-15T12:00:00.000Z",
+              "updatedAt": "2024-01-15T12:00:00.000Z",
+              "description": "This is an example description."
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.set.querySets
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+      ~namePrefix: 
+      ~sortBy: 
+      ~sortDirection: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.set.querySets
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+      ~namePrefix: 
+      ~sortBy: 
+      ~sortDirection: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

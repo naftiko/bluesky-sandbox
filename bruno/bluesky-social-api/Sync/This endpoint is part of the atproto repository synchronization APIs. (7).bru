@@ -1,0 +1,125 @@
+meta {
+  name: This endpoint is part of the atproto repository synchronization APIs. (7)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.sync.requestCrawl
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "hostname": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for syncRequestCrawl)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.sync.requestCrawl
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "hostname": "Example Name"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for syncRequestCrawl)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.sync.requestCrawl
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "hostname": "Example Name"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for syncRequestCrawl)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.sync.requestCrawl
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "hostname": "Example Name"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

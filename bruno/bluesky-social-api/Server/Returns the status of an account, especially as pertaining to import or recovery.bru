@@ -1,0 +1,117 @@
+meta {
+  name: Returns the status of an account, especially as pertaining to import or recovery.
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.server.checkAccountStatus
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for serverCheckAccountStatus
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.checkAccountStatus
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "activated": true,
+          "validDid": true,
+          "repoCommit": "bafyreiabc123example",
+          "repoRev": "example-repoRev",
+          "repoBlocks": 50,
+          "indexedRecords": 50,
+          "privateStateValues": 50,
+          "expectedBlobs": 50,
+          "importedBlobs": 50
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.checkAccountStatus
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.checkAccountStatus
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

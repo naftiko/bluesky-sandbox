@@ -1,0 +1,95 @@
+meta {
+  name: This endpoint is part of the atproto repository synchronization APIs. (2)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.sync.getRecord
+  body: none
+  auth: bearer
+}
+
+params:query {
+  did: did:plc:example123abc
+  collection: 
+  rkey: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.sync.getRecord
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+      collection: 
+      rkey: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.sync.getRecord
+    method: GET
+    mode: none
+    params:query: {
+      did: did:plc:example123abc
+      collection: 
+      rkey: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

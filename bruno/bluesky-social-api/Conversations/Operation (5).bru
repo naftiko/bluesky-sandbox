@@ -1,0 +1,131 @@
+meta {
+  name: Operation (5)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/xrpc/chat.bsky.convo.leaveConvo
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "convoId": ""
+  }
+}
+
+example {
+  name: Successful response for chatConvoLeaveConvo (Example request for chatConvoLeaveConvo)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.leaveConvo
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "convoId": "example-convoId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "convoId": "example-convoId",
+          "rev": "example-rev"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for chatConvoLeaveConvo)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.leaveConvo
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "convoId": "example-convoId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for chatConvoLeaveConvo)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.leaveConvo
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "convoId": "example-convoId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

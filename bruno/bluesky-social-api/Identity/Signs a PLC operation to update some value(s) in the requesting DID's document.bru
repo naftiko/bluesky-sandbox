@@ -1,0 +1,158 @@
+meta {
+  name: Signs a PLC operation to update some value(s) in the requesting DID's document.
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.identity.signPlcOperation
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "token": "",
+    "rotationKeys": [],
+    "alsoKnownAs": [],
+    "verificationMethods": "",
+    "services": ""
+  }
+}
+
+example {
+  name: Successful response for identitySignPlcOperation (Example request for identitySignPlcOperation)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.signPlcOperation
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "token": "example-token",
+        "rotationKeys": [
+          "example-rotationKeys"
+        ],
+        "alsoKnownAs": [
+          "example-alsoKnownAs"
+        ],
+        "verificationMethods": {},
+        "services": {}
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "operation": {}
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for identitySignPlcOperation)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.signPlcOperation
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "token": "example-token",
+        "rotationKeys": [
+          "example-rotationKeys"
+        ],
+        "alsoKnownAs": [
+          "example-alsoKnownAs"
+        ],
+        "verificationMethods": {},
+        "services": {}
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for identitySignPlcOperation)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.signPlcOperation
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "token": "example-token",
+        "rotationKeys": [
+          "example-rotationKeys"
+        ],
+        "alsoKnownAs": [
+          "example-alsoKnownAs"
+        ],
+        "verificationMethods": {},
+        "services": {}
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

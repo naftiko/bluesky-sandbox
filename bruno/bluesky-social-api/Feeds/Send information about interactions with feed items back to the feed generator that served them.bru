@@ -1,0 +1,154 @@
+meta {
+  name: Send information about interactions with feed items back to the feed generator that served them.
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{baseUrl}}/xrpc/app.bsky.feed.sendInteractions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "interactions": [
+      {
+        "item": "",
+        "event": "",
+        "feedContext": ""
+      }
+    ]
+  }
+}
+
+example {
+  name: Successful response for feedSendInteractions (Example request for feedSendInteractions)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.sendInteractions
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "interactions": [
+          {
+            "item": "at://did:plc:example123/app.bsky.feed.post/abc123",
+            "event": "app.bsky.feed.defs#requestLess",
+            "feedContext": "Example text content"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "_unknown_": {}
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for feedSendInteractions)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.sendInteractions
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "interactions": [
+          {
+            "item": "at://did:plc:example123/app.bsky.feed.post/abc123",
+            "event": "app.bsky.feed.defs#requestLess",
+            "feedContext": "Example text content"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for feedSendInteractions)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.sendInteractions
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "interactions": [
+          {
+            "item": "at://did:plc:example123/app.bsky.feed.post/abc123",
+            "event": "app.bsky.feed.defs#requestLess",
+            "feedContext": "Example text content"
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

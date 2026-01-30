@@ -1,0 +1,125 @@
+meta {
+  name: Updates the current account's handle.
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.identity.updateHandle
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "handle": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for identityUpdateHandle)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.updateHandle
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "handle": "user.bsky.social"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for identityUpdateHandle)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.updateHandle
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "handle": "user.bsky.social"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for identityUpdateHandle)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.updateHandle
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "handle": "user.bsky.social"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

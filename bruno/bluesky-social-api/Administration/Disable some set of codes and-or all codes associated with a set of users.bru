@@ -1,0 +1,141 @@
+meta {
+  name: Disable some set of codes and/or all codes associated with a set of users.
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.admin.disableInviteCodes
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "codes": [],
+    "accounts": []
+  }
+}
+
+example {
+  name: 200 Response (Example request for adminDisableInviteCodes)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.disableInviteCodes
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "codes": [
+          "example-codes"
+        ],
+        "accounts": [
+          "example-accounts"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for adminDisableInviteCodes)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.disableInviteCodes
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "codes": [
+          "example-codes"
+        ],
+        "accounts": [
+          "example-accounts"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for adminDisableInviteCodes)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.disableInviteCodes
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "codes": [
+          "example-codes"
+        ],
+        "accounts": [
+          "example-accounts"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

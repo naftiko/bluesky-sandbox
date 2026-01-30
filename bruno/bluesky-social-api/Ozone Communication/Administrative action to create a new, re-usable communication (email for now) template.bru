@@ -1,0 +1,153 @@
+meta {
+  name: Administrative action to create a new, re-usable communication (email for now) template.
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.communication.createTemplate
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+    {
+      "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+      "contentMarkdown": "example-contentMarkdown",
+      "name": "Example Name",
+      "lang": "en",
+      "createdBy": "did:plc:example123abc"
+    }
+}
+
+example {
+  name: Successful response for ozoneCommunicationCreateTemplate (Example request for ozoneCommunicationCreateTemplate)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.communication.createTemplate
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+        "contentMarkdown": "example-contentMarkdown",
+        "name": "Example Name",
+        "lang": "en",
+        "createdBy": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": "example-id",
+          "name": "Example Name",
+          "contentMarkdown": "example-contentMarkdown",
+          "disabled": true,
+          "lastUpdatedBy": "did:plc:example123abc",
+          "createdAt": "2024-01-15T12:00:00.000Z",
+          "updatedAt": "2024-01-15T12:00:00.000Z",
+          "subject": "at://did:plc:example123/app.bsky.feed.post/abc123"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneCommunicationCreateTemplate)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.communication.createTemplate
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+        "contentMarkdown": "example-contentMarkdown",
+        "name": "Example Name",
+        "lang": "en",
+        "createdBy": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneCommunicationCreateTemplate)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.communication.createTemplate
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+        "contentMarkdown": "example-contentMarkdown",
+        "name": "Example Name",
+        "lang": "en",
+        "createdBy": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

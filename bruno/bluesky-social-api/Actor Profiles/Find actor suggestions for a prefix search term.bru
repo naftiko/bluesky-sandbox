@@ -1,0 +1,163 @@
+meta {
+  name: Find actor suggestions for a prefix search term.
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.actor.searchActorsTypeahead
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~q: naftiko
+  ~limit: 25
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for actorSearchActorsTypeahead
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.actor.searchActorsTypeahead
+    method: GET
+    mode: none
+    params:query: {
+      ~q: naftiko
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "actors": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "displayName": "Example Name",
+              "avatar": "https://example.com/resource",
+              "associated": {
+                "lists": 50,
+                "feedgens": 50,
+                "starterPacks": 50,
+                "labeler": true,
+                "chat": {}
+              },
+              "viewer": {
+                "muted": true,
+                "mutedByList": {},
+                "blockedBy": true,
+                "blocking": "at://did:plc:example123/app.bsky.feed.post/abc123",
+                "blockingByList": {},
+                "following": "at://did:plc:example123/app.bsky.feed.post/abc123",
+                "followedBy": "at://did:plc:example123/app.bsky.feed.post/abc123",
+                "knownFollowers": {}
+              },
+              "labels": [
+                {
+                  "src": {},
+                  "uri": {},
+                  "val": {},
+                  "cts": {},
+                  "ver": {},
+                  "cid": {},
+                  "neg": {},
+                  "exp": {}
+                }
+              ],
+              "createdAt": "2024-01-15T12:00:00.000Z"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.actor.searchActorsTypeahead
+    method: GET
+    mode: none
+    params:query: {
+      ~q: naftiko
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.actor.searchActorsTypeahead
+    method: GET
+    mode: none
+    params:query: {
+      ~q: naftiko
+      ~limit: 25
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

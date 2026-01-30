@@ -1,0 +1,156 @@
+meta {
+  name: Enumerates the lists created by a specified account (actor).
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.graph.getLists
+  body: none
+  auth: bearer
+}
+
+params:query {
+  actor: naftiko
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for graphGetLists
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getLists
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "lists": [
+            {
+              "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "cid": "bafyreiabc123example",
+              "creator": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "description": "This is an example description.",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "indexedAt": "2024-01-15T12:00:00.000Z",
+                "createdAt": "2024-01-15T12:00:00.000Z"
+              },
+              "name": "Example Name",
+              "purpose": {},
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "description": "This is an example description.",
+              "descriptionFacets": [
+                {
+                  "index": {},
+                  "features": {}
+                }
+              ]
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getLists
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getLists
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

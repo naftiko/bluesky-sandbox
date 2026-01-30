@@ -1,0 +1,139 @@
+meta {
+  name: Operation (12)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/xrpc/chat.bsky.moderation.getActorMetadata
+  body: none
+  auth: bearer
+}
+
+params:query {
+  actor: naftiko
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for chatModerationGetActorMetadata
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.moderation.getActorMetadata
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "day": {
+            "messagesSent": 50,
+            "messagesReceived": 50,
+            "convos": 50,
+            "convosStarted": 50
+          },
+          "month": {
+            "messagesSent": 50,
+            "messagesReceived": 50,
+            "convos": 50,
+            "convosStarted": 50
+          },
+          "all": {
+            "messagesSent": 50,
+            "messagesReceived": 50,
+            "convos": 50,
+            "convosStarted": 50
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.moderation.getActorMetadata
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.moderation.getActorMetadata
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

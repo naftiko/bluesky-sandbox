@@ -1,0 +1,151 @@
+meta {
+  name: Submit a moderation report regarding an atproto account or record.
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.moderation.createReport
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "reasonType": "",
+    "reason": "",
+    "subject": ""
+  }
+}
+
+example {
+  name: Successful response for moderationCreateReport (Example request for moderationCreateReport)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.moderation.createReport
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "reasonType": "example-token",
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "reason": "Example reason"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 50,
+          "reasonType": "example-token",
+          "subject": {
+            "did": "did:plc:example123abc"
+          },
+          "reportedBy": "did:plc:example123abc",
+          "createdAt": "2024-01-15T12:00:00.000Z",
+          "reason": "Example reason"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for moderationCreateReport)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.moderation.createReport
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "reasonType": "example-token",
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "reason": "Example reason"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for moderationCreateReport)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.moderation.createReport
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "reasonType": "example-token",
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "reason": "Example reason"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

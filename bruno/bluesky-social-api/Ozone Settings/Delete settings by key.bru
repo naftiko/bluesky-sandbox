@@ -1,0 +1,139 @@
+meta {
+  name: Delete settings by key
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.setting.removeOptions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "keys": [],
+    "scope": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for ozoneSettingRemoveOptions)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.removeOptions
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "keys": [
+          "app.bsky.feed.post"
+        ],
+        "scope": "instance"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {}
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneSettingRemoveOptions)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.removeOptions
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "keys": [
+          "app.bsky.feed.post"
+        ],
+        "scope": "instance"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneSettingRemoveOptions)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.removeOptions
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "keys": [
+          "app.bsky.feed.post"
+        ],
+        "scope": "instance"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

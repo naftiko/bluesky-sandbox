@@ -1,0 +1,135 @@
+meta {
+  name: Add values to a specific set.
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.set.addValues
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "",
+    "values": []
+  }
+}
+
+example {
+  name: 200 Response (Example request for ozoneSetAddValues)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.set.addValues
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": "Example Name",
+        "values": [
+          "example-values"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneSetAddValues)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.set.addValues
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": "Example Name",
+        "values": [
+          "example-values"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneSetAddValues)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.set.addValues
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "name": "Example Name",
+        "values": [
+          "example-values"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

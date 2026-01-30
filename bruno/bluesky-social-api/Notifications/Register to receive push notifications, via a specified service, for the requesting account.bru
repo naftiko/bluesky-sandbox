@@ -1,0 +1,137 @@
+meta {
+  name: Register to receive push notifications, via a specified service, for the requesting account.
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/xrpc/app.bsky.notification.registerPush
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "serviceDid": "",
+    "token": "",
+    "platform": "",
+    "appId": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for notificationRegisterPush)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.registerPush
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "serviceDid": "did:plc:example123abc",
+        "token": "example-token",
+        "platform": "ios",
+        "appId": "example-appId"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for notificationRegisterPush)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.registerPush
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "serviceDid": "did:plc:example123abc",
+        "token": "example-token",
+        "platform": "ios",
+        "appId": "example-appId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for notificationRegisterPush)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.notification.registerPush
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "serviceDid": "did:plc:example123abc",
+        "token": "example-token",
+        "platform": "ios",
+        "appId": "example-appId"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

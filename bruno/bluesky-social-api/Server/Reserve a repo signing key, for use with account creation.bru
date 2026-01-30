@@ -1,0 +1,130 @@
+meta {
+  name: Reserve a repo signing key, for use with account creation.
+  type: http
+  seq: 22
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.reserveSigningKey
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    did": "did:plc:example123abc"
+  }
+}
+
+example {
+  name: Successful response for serverReserveSigningKey (Example request for serverReserveSigningKey)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.reserveSigningKey
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "signingKey": "example-signingKey"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverReserveSigningKey)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.reserveSigningKey
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverReserveSigningKey)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.reserveSigningKey
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

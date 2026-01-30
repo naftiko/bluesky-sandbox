@@ -1,0 +1,125 @@
+meta {
+  name: Deactivates a currently active account.
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.deactivateAccount
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "deleteAfter": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for serverDeactivateAccount)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.deactivateAccount
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "deleteAfter": "2024-01-15T12:00:00.000Z"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverDeactivateAccount)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.deactivateAccount
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "deleteAfter": "2024-01-15T12:00:00.000Z"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverDeactivateAccount)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.deactivateAccount
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "deleteAfter": "2024-01-15T12:00:00.000Z"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

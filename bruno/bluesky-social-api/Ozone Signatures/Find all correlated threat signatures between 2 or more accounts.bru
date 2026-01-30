@@ -1,0 +1,127 @@
+meta {
+  name: Find all correlated threat signatures between 2 or more accounts.
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.signature.findCorrelation
+  body: none
+  auth: bearer
+}
+
+params:query {
+  dids: did:plc:example123abc,did:plc:example24abc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneSignatureFindCorrelation
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.signature.findCorrelation
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "details": [
+            {
+              "property": "example-property",
+              "value": "example-value"
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.signature.findCorrelation
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.signature.findCorrelation
+    method: GET
+    mode: none
+    params:query: {
+      dids: did:plc:example123abc,did:plc:example24abc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

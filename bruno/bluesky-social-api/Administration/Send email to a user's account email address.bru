@@ -1,0 +1,146 @@
+meta {
+  name: Send email to a user's account email address.
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.admin.sendEmail
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "recipientDid": "",
+    "content": "",
+    "subject": "",
+    "senderDid": "",
+    "comment": ""
+  }
+}
+
+example {
+  name: Successful response for adminSendEmail (Example request for adminSendEmail)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.sendEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "recipientDid": "did:plc:example123abc",
+        "content": "example-content",
+        "senderDid": "did:plc:example123abc",
+        "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+        "comment": "example-comment"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "sent": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for adminSendEmail)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.sendEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "recipientDid": "did:plc:example123abc",
+        "content": "example-content",
+        "senderDid": "did:plc:example123abc",
+        "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+        "comment": "example-comment"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for adminSendEmail)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.admin.sendEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "recipientDid": "did:plc:example123abc",
+        "content": "example-content",
+        "senderDid": "did:plc:example123abc",
+        "subject": "at://did:plc:example123/app.bsky.feed.post/abc123",
+        "comment": "example-comment"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

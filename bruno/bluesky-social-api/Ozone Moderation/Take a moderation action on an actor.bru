@@ -1,0 +1,181 @@
+meta {
+  name: Take a moderation action on an actor.
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.moderation.emitEvent
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "event": "",
+    "subject": "",
+    "subjectBlobCids": [],
+    "createdBy": ""
+  }
+}
+
+example {
+  name: Successful response for ozoneModerationEmitEvent (Example request for ozoneModerationEmitEvent)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.emitEvent
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "event": {
+          "comment": "example-comment",
+          "durationInHours": 50,
+          "acknowledgeAccountSubjects": true
+        },
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "createdBy": "did:plc:example123abc",
+        "subjectBlobCids": [
+          "bafyreiabc123example"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 50,
+          "event": {
+            "comment": "example-comment",
+            "durationInHours": 50,
+            "acknowledgeAccountSubjects": true
+          },
+          "subject": {
+            "did": "did:plc:example123abc"
+          },
+          "subjectBlobCids": [
+            "at://did:plc:example123/app.bsky.feed.post/abc123"
+          ],
+          "createdBy": "did:plc:example123abc",
+          "createdAt": "2024-01-15T12:00:00.000Z",
+          "creatorHandle": "example-creatorHandle",
+          "subjectHandle": "at://did:plc:example123/app.bsky.feed.post/abc123"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneModerationEmitEvent)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.emitEvent
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "event": {
+          "comment": "example-comment",
+          "durationInHours": 50,
+          "acknowledgeAccountSubjects": true
+        },
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "createdBy": "did:plc:example123abc",
+        "subjectBlobCids": [
+          "bafyreiabc123example"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneModerationEmitEvent)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.emitEvent
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "event": {
+          "comment": "example-comment",
+          "durationInHours": 50,
+          "acknowledgeAccountSubjects": true
+        },
+        "subject": {
+          "did": "did:plc:example123abc"
+        },
+        "createdBy": "did:plc:example123abc",
+        "subjectBlobCids": [
+          "bafyreiabc123example"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

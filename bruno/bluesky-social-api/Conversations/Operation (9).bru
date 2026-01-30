@@ -1,0 +1,193 @@
+meta {
+  name: Operation (9)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/xrpc/chat.bsky.convo.sendMessageBatch
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "items": [
+      {
+        "convoId": "",
+        "message": {
+          "text": "",
+          "facets": [
+            {
+              "index": {
+                "byteStart": 0,
+                "byteEnd": 0
+              },
+              "features": []
+            }
+          ],
+          "embed": ""
+        }
+      }
+    ]
+  }
+}
+
+example {
+  name: Successful response for chatConvoSendMessageBatch (Example request for chatConvoSendMessageBatch)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.sendMessageBatch
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "items": [
+          {
+            "convoId": "example-convoId",
+            "message": {
+              "text": "Example text content",
+              "facets": [],
+              "embed": {}
+            }
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "items": [
+            {
+              "id": "example-id",
+              "rev": "example-rev",
+              "text": "Example text content",
+              "sender": {
+                "did": "did:plc:example123abc"
+              },
+              "sentAt": "2024-01-15T12:00:00.000Z",
+              "facets": [
+                {
+                  "index": {},
+                  "features": {}
+                }
+              ],
+              "embed": {
+                "record": {}
+              }
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for chatConvoSendMessageBatch)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.sendMessageBatch
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "items": [
+          {
+            "convoId": "example-convoId",
+            "message": {
+              "text": "Example text content",
+              "facets": [],
+              "embed": {}
+            }
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for chatConvoSendMessageBatch)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.sendMessageBatch
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "items": [
+          {
+            "convoId": "example-convoId",
+            "message": {
+              "text": "Example text content",
+              "facets": [],
+              "embed": {}
+            }
+          }
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

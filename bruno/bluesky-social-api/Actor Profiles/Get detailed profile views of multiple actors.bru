@@ -1,0 +1,133 @@
+meta {
+  name: Get detailed profile views of multiple actors.
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.actor.getProfiles?actors=naftiko
+  body: none
+  auth: bearer
+}
+
+params:query {
+  actors: naftiko
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for actorGetProfiles
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.actor.getProfiles
+    method: GET
+    mode: none
+    params:query: {
+      actors: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "profiles": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "displayName": "Example Name",
+              "description": "This is an example description.",
+              "avatar": "https://example.com/resource",
+              "banner": "https://example.com/resource",
+              "followersCount": 50,
+              "followsCount": 50
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.actor.getProfiles
+    method: GET
+    mode: none
+    params:query: {
+      actors: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.actor.getProfiles
+    method: GET
+    mode: none
+    params:query: {
+      actors: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,149 @@
+meta {
+  name: Operation (2)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/xrpc/chat.bsky.convo.getConvoForMembers
+  body: none
+  auth: bearer
+}
+
+params:query {
+  members: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for chatConvoGetConvoForMembers
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.getConvoForMembers
+    method: GET
+    mode: none
+    params:query: {
+      members: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "convo": {
+            "id": "example-id",
+            "rev": "example-rev",
+            "members": [
+              {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "viewer": {},
+                "labels": [],
+                "chatDisabled": true
+              }
+            ],
+            "muted": true,
+            "unreadCount": 50,
+            "lastMessage": {
+              "id": "example-id",
+              "rev": "example-rev",
+              "text": "Example text content",
+              "sender": {},
+              "sentAt": "2024-01-15T12:00:00.000Z",
+              "facets": [],
+              "embed": {}
+            },
+            "opened": true
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.getConvoForMembers
+    method: GET
+    mode: none
+    params:query: {
+      members: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/chat.bsky.convo.getConvoForMembers
+    method: GET
+    mode: none
+    params:query: {
+      members: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

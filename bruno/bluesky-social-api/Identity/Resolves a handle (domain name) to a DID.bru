@@ -1,0 +1,122 @@
+meta {
+  name: Resolves a handle (domain name) to a DID.
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.identity.resolveHandle
+  body: none
+  auth: bearer
+}
+
+params:query {
+  handle: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for identityResolveHandle
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.resolveHandle
+    method: GET
+    mode: none
+    params:query: {
+      handle: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "did": "did:plc:example123abc"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.resolveHandle
+    method: GET
+    mode: none
+    params:query: {
+      handle: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.identity.resolveHandle
+    method: GET
+    mode: none
+    params:query: {
+      handle: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

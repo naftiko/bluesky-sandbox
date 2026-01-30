@@ -1,0 +1,117 @@
+meta {
+  name: Upload a video to be processed then stored on the PDS.
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/xrpc/app.bsky.video.uploadVideo
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for videoUploadVideo
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.video.uploadVideo
+    method: POST
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "jobStatus": {
+            "jobId": "example-jobId",
+            "did": "did:plc:example123abc",
+            "state": "JOB_STATE_COMPLETED",
+            "progress": 50,
+            "blob": "example-blob",
+            "error": "example-error",
+            "message": "example-message"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.video.uploadVideo
+    method: POST
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.video.uploadVideo
+    method: POST
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

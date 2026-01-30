@@ -1,0 +1,129 @@
+meta {
+  name: Confirm an email using a token from com.atproto.server.requestEmailConfirmation.
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.confirmEmail
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "kinlane@naftiko.io",
+    "token": ""
+  }
+}
+
+example {
+  name: 200 Response (Example request for serverConfirmEmail)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.confirmEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "email": "user@example.com",
+        "token": "example-token"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverConfirmEmail)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.confirmEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "email": "user@example.com",
+        "token": "example-token"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverConfirmEmail)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.confirmEmail
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "email": "user@example.com",
+        "token": "example-token"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

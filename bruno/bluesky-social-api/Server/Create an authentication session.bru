@@ -1,0 +1,145 @@
+meta {
+  name: Create an authentication session.
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.createSession
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "identifier": "",
+    "password": "",
+    "authFactorToken": ""
+  }
+}
+
+example {
+  name: Successful response for serverCreateSession (Example request for serverCreateSession)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createSession
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "identifier": "example-identifier",
+        "password": "example-password",
+        "authFactorToken": "example-authFactorToken"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "accessJwt": "example-accessJwt",
+          "refreshJwt": "example-refreshJwt",
+          "handle": "user.bsky.social",
+          "did": "did:plc:example123abc",
+          "didDoc": {},
+          "email": "user@example.com",
+          "emailConfirmed": true,
+          "emailAuthFactor": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverCreateSession)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createSession
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "identifier": "example-identifier",
+        "password": "example-password",
+        "authFactorToken": "example-authFactorToken"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverCreateSession)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createSession
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "identifier": "example-identifier",
+        "password": "example-password",
+        "authFactorToken": "example-authFactorToken"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,210 @@
+meta {
+  name: List moderation events related to a subject.
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.moderation.queryEvents
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~types: 
+  ~createdBy: 
+  ~sortDirection: 
+  ~createdAfter: 
+  ~createdBefore: 
+  ~subject: 
+  ~collections: 
+  ~subjectType: 
+  ~includeAllUserRecords: 
+  ~limit: 25
+  ~hasComment: 
+  ~comment: 
+  ~addedLabels: 
+  ~removedLabels: 
+  ~addedTags: 
+  ~removedTags: 
+  ~reportTypes: 
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneModerationQueryEvents
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.queryEvents
+    method: GET
+    mode: none
+    params:query: {
+      ~types: 
+      ~createdBy: 
+      ~sortDirection: 
+      ~createdAfter: 
+      ~createdBefore: 
+      ~subject: 
+      ~collections: 
+      ~subjectType: 
+      ~includeAllUserRecords: 
+      ~limit: 25
+      ~hasComment: 
+      ~comment: 
+      ~addedLabels: 
+      ~removedLabels: 
+      ~addedTags: 
+      ~removedTags: 
+      ~reportTypes: 
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "events": [
+            {
+              "id": 50,
+              "event": {
+                "comment": {},
+                "durationInHours": {},
+                "acknowledgeAccountSubjects": {}
+              },
+              "subject": {
+                "did": {}
+              },
+              "subjectBlobCids": [
+                "at://did:plc:example123/app.bsky.feed.post/abc123"
+              ],
+              "createdBy": "did:plc:example123abc",
+              "createdAt": "2024-01-15T12:00:00.000Z",
+              "creatorHandle": "example-creatorHandle",
+              "subjectHandle": "at://did:plc:example123/app.bsky.feed.post/abc123"
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.queryEvents
+    method: GET
+    mode: none
+    params:query: {
+      ~types: 
+      ~createdBy: 
+      ~sortDirection: 
+      ~createdAfter: 
+      ~createdBefore: 
+      ~subject: 
+      ~collections: 
+      ~subjectType: 
+      ~includeAllUserRecords: 
+      ~limit: 25
+      ~hasComment: 
+      ~comment: 
+      ~addedLabels: 
+      ~removedLabels: 
+      ~addedTags: 
+      ~removedTags: 
+      ~reportTypes: 
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.moderation.queryEvents
+    method: GET
+    mode: none
+    params:query: {
+      ~types: 
+      ~createdBy: 
+      ~sortDirection: 
+      ~createdAfter: 
+      ~createdBefore: 
+      ~subject: 
+      ~collections: 
+      ~subjectType: 
+      ~includeAllUserRecords: 
+      ~limit: 25
+      ~hasComment: 
+      ~comment: 
+      ~addedLabels: 
+      ~removedLabels: 
+      ~addedTags: 
+      ~removedTags: 
+      ~reportTypes: 
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,144 @@
+meta {
+  name: Gets post views for a specified list of posts (by AT-URI).
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.feed.getPosts
+  body: none
+  auth: bearer
+}
+
+params:query {
+  uris: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for feedGetPosts
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getPosts
+    method: GET
+    mode: none
+    params:query: {
+      uris: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "posts": [
+            {
+              "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "cid": "bafyreiabc123example",
+              "author": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "viewer": {},
+                "labels": [],
+                "createdAt": "2024-01-15T12:00:00.000Z"
+              },
+              "record": {},
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "embed": {
+                "images": {}
+              },
+              "replyCount": 50,
+              "repostCount": 50
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getPosts
+    method: GET
+    mode: none
+    params:query: {
+      uris: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getPosts
+    method: GET
+    mode: none
+    params:query: {
+      uris: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

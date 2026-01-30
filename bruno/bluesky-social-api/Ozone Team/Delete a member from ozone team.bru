@@ -1,0 +1,125 @@
+meta {
+  name: Delete a member from ozone team.
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.team.deleteMember
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    did": "did:plc:example123abc"
+  }
+}
+
+example {
+  name: 200 Response (Example request for ozoneTeamDeleteMember)
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.deleteMember
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneTeamDeleteMember)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.deleteMember
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneTeamDeleteMember)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.team.deleteMember
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "did": "did:plc:example123abc"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

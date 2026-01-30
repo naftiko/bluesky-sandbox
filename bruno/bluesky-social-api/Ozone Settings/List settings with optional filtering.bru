@@ -1,0 +1,150 @@
+meta {
+  name: List settings with optional filtering
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/xrpc/tools.ozone.setting.listOptions
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+  ~scope: 
+  ~prefix: 
+  ~keys: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for ozoneSettingListOptions
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.listOptions
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+      ~scope: 
+      ~prefix: 
+      ~keys: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "options": [
+            {
+              "key": "app.bsky.feed.post",
+              "value": {},
+              "did": "did:plc:example123abc",
+              "scope": "instance",
+              "createdBy": "did:plc:example123abc",
+              "lastUpdatedBy": "did:plc:example123abc",
+              "description": "This is an example description.",
+              "createdAt": "2024-01-15T12:00:00.000Z"
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.listOptions
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+      ~scope: 
+      ~prefix: 
+      ~keys: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.listOptions
+    method: GET
+    mode: none
+    params:query: {
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+      ~scope: 
+      ~prefix: 
+      ~keys: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

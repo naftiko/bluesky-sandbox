@@ -1,0 +1,140 @@
+meta {
+  name: Enumerates follows similar to a given account (actor).
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.graph.getSuggestedFollowsByActor
+  body: none
+  auth: bearer
+}
+
+params:query {
+  actor: naftiko
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for graphGetSuggestedFollowsByActor
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getSuggestedFollowsByActor
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "suggestions": [
+            {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "displayName": "Example Name",
+              "description": "This is an example description.",
+              "avatar": "https://example.com/resource",
+              "associated": {
+                "lists": 50,
+                "feedgens": 50,
+                "starterPacks": 50,
+                "labeler": true,
+                "chat": {}
+              },
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "createdAt": "2024-01-15T12:00:00.000Z"
+            }
+          ],
+          "isFallback": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getSuggestedFollowsByActor
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getSuggestedFollowsByActor
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

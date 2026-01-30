@@ -1,0 +1,156 @@
+meta {
+  name: Get a list of feeds (feed generator records) created by the actor (in the actor's repo).
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.feed.getActorFeeds
+  body: none
+  auth: bearer
+}
+
+params:query {
+  actor: naftiko
+  ~limit: 25
+  ~cursor: a335691ff1cdsxdc
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for feedGetActorFeeds
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getActorFeeds
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "feeds": [
+            {
+              "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "cid": "bafyreiabc123example",
+              "did": "did:plc:example123abc",
+              "creator": {
+                "did": "did:plc:example123abc",
+                "handle": "user.bsky.social",
+                "displayName": "Example Name",
+                "description": "This is an example description.",
+                "avatar": "https://example.com/resource",
+                "associated": {},
+                "indexedAt": "2024-01-15T12:00:00.000Z",
+                "createdAt": "2024-01-15T12:00:00.000Z"
+              },
+              "displayName": "Example Name",
+              "indexedAt": "2024-01-15T12:00:00.000Z",
+              "description": "This is an example description.",
+              "descriptionFacets": [
+                {
+                  "index": {},
+                  "features": {}
+                }
+              ]
+            }
+          ],
+          "cursor": "eyJsYXN0SWQiOiIxMjM0NTYifQ"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getActorFeeds
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.feed.getActorFeeds
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~limit: 25
+      ~cursor: a335691ff1cdsxdc
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

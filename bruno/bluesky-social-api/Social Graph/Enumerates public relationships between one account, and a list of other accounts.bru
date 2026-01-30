@@ -1,0 +1,133 @@
+meta {
+  name: Enumerates public relationships between one account, and a list of other accounts.
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.graph.getRelationships
+  body: none
+  auth: bearer
+}
+
+params:query {
+  actor: naftiko
+  ~others: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for graphGetRelationships
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getRelationships
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~others: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "relationships": [
+            {
+              "did": "did:plc:example123abc",
+              "following": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "followedBy": "at://did:plc:example123/app.bsky.feed.post/abc123"
+            }
+          ],
+          "actor": "did:plc:example123abc"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getRelationships
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~others: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getRelationships
+    method: GET
+    mode: none
+    params:query: {
+      actor: naftiko
+      ~others: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

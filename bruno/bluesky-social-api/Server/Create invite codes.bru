@@ -1,0 +1,151 @@
+meta {
+  name: Create invite codes.
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCodes
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "codeCount": 0,
+    "useCount": 0,
+    "forAccounts": []
+  }
+}
+
+example {
+  name: Successful response for serverCreateInviteCodes (Example request for serverCreateInviteCodes)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCodes
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "codeCount": 1,
+        "useCount": 50,
+        "forAccounts": [
+          "did:plc:example123abc"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "codes": [
+            {
+              "account": "example-account",
+              "codes": [
+                "example-codes"
+              ]
+            }
+          ]
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for serverCreateInviteCodes)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCodes
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "codeCount": 1,
+        "useCount": 50,
+        "forAccounts": [
+          "did:plc:example123abc"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for serverCreateInviteCodes)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.server.createInviteCodes
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "codeCount": 1,
+        "useCount": 50,
+        "forAccounts": [
+          "did:plc:example123abc"
+        ]
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

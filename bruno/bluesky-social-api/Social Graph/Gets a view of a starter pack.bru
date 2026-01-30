@@ -1,0 +1,183 @@
+meta {
+  name: Gets a view of a starter pack.
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/xrpc/app.bsky.graph.getStarterPack
+  body: none
+  auth: bearer
+}
+
+params:query {
+  starterPack: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for graphGetStarterPack
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getStarterPack
+    method: GET
+    mode: none
+    params:query: {
+      starterPack: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "starterPack": {
+            "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+            "cid": "bafyreiabc123example",
+            "record": {},
+            "creator": {
+              "did": "did:plc:example123abc",
+              "handle": "user.bsky.social",
+              "displayName": "Example Name",
+              "avatar": "https://example.com/resource",
+              "associated": {
+                "lists": {},
+                "feedgens": {},
+                "starterPacks": {},
+                "labeler": {},
+                "chat": {}
+              },
+              "viewer": {
+                "muted": {},
+                "mutedByList": {},
+                "blockedBy": {},
+                "blocking": {},
+                "blockingByList": {},
+                "following": {},
+                "followedBy": {},
+                "knownFollowers": {}
+              },
+              "labels": [],
+              "createdAt": "2024-01-15T12:00:00.000Z"
+            },
+            "indexedAt": "2024-01-15T12:00:00.000Z",
+            "list": {
+              "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+              "cid": "bafyreiabc123example",
+              "name": "Example Name",
+              "purpose": {},
+              "avatar": "https://example.com/resource",
+              "listItemCount": 50,
+              "labels": [],
+              "viewer": {
+                "muted": {},
+                "blocked": {}
+              }
+            },
+            "listItemsSample": [
+              {
+                "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+                "subject": {}
+              }
+            ],
+            "feeds": [
+              {
+                "uri": "at://did:plc:example123/app.bsky.feed.post/abc123",
+                "cid": "bafyreiabc123example",
+                "did": "did:plc:example123abc",
+                "creator": {},
+                "displayName": "Example Name",
+                "indexedAt": "2024-01-15T12:00:00.000Z",
+                "description": "This is an example description.",
+                "descriptionFacets": []
+              }
+            ]
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getStarterPack
+    method: GET
+    mode: none
+    params:query: {
+      starterPack: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/app.bsky.graph.getStarterPack
+    method: GET
+    mode: none
+    params:query: {
+      starterPack: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

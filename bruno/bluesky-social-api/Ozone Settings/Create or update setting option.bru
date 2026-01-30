@@ -1,0 +1,155 @@
+meta {
+  name: Create or update setting option
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/xrpc/tools.ozone.setting.upsertOption
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "key": "",
+    "scope": "",
+    "value": "",
+    "description": "",
+    "managerRole": ""
+  }
+}
+
+example {
+  name: Successful response for ozoneSettingUpsertOption (Example request for ozoneSettingUpsertOption)
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.upsertOption
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "key": "app.bsky.feed.post",
+        "scope": "instance",
+        "value": {},
+        "description": "This is an example description.",
+        "managerRole": "tools.ozone.team.defs#roleModerator"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "option": {
+            "key": "app.bsky.feed.post",
+            "value": {},
+            "did": "did:plc:example123abc",
+            "scope": "instance",
+            "createdBy": "did:plc:example123abc",
+            "lastUpdatedBy": "did:plc:example123abc",
+            "description": "This is an example description.",
+            "createdAt": "2024-01-15T12:00:00.000Z"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response (Example request for ozoneSettingUpsertOption)
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.upsertOption
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "key": "app.bsky.feed.post",
+        "scope": "instance",
+        "value": {},
+        "description": "This is an example description.",
+        "managerRole": "tools.ozone.team.defs#roleModerator"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response (Example request for ozoneSettingUpsertOption)
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/tools.ozone.setting.upsertOption
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "key": "app.bsky.feed.post",
+        "scope": "instance",
+        "value": {},
+        "description": "This is an example description.",
+        "managerRole": "tools.ozone.team.defs#roleModerator"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}

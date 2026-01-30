@@ -1,0 +1,128 @@
+meta {
+  name: Get information about an account and repository, including the list of collections.
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/xrpc/com.atproto.repo.describeRepo
+  body: none
+  auth: bearer
+}
+
+params:query {
+  repo: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+example {
+  name: Successful response for repoDescribeRepo
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.describeRepo
+    method: GET
+    mode: none
+    params:query: {
+      repo: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "handle": "user.bsky.social",
+          "did": "did:plc:example123abc",
+          "didDoc": {},
+          "collections": [
+            "app.bsky.feed.post"
+          ],
+          "handleIsCorrect": true
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad Request
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.describeRepo
+    method: GET
+    mode: none
+    params:query: {
+      repo: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Unauthorized
+  
+  request: {
+    url: {{baseUrl}}/xrpc/com.atproto.repo.describeRepo
+    method: GET
+    mode: none
+    params:query: {
+      repo: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "error": "",
+          "message": ""
+        }
+      '''
+    }
+  }
+}
