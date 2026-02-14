@@ -1,0 +1,304 @@
+specificationVersion: '0.19'
+
+aid: bluesky-sandbox
+type: Sandbox
+visibility: Public
+
+name: Bluesky API & MCP Sandbox
+description: >-
+  This is a Bluesky sandbox that uses OpenAPI, Microcks, Bruno, and Backstage
+  to provide a 3rd-party REST API and MCP sandbox for Bluesky.
+tags:
+  - Social
+  - Messaging
+
+image: https://naftiko.s3.us-east-1.amazonaws.com/naftiko-logo-blue-icon.png
+
+created: '2026-02-13'
+modified: '2026-02-13'
+
+url: https://github.com/naftiko/bluesky-sandbox/blob/main/README.md
+
+apis:
+
+  - aid: bluesky:social-api
+    name: Bluesky Social API
+    description: >-
+      The Bluesky Social API provides programmatic access to the Bluesky
+      social network built on the AT Protocol. This API enables developers
+      to manage user profiles and preferences, create, read, and interact
+      with posts and feeds, handle social graph operations (follows, blocks,
+      mutes), process notifications and conversations, moderate content and
+      manage labels, and synchronize repository data. Authentication is
+      handled via Bearer tokens. Public endpoints can be accessed directly at
+      https://public.api.bsky.app, while authenticated requests should be made
+      to the user's Personal Data Server (PDS). For more information, visit the
+      Bluesky API Documentation at https://docs.bsky.app.
+    tags:
+      - Social Graph
+      - Feeds
+      - Actor Profiles
+      - Notifications
+      - Conversations
+      - Moderation
+      - Repository
+      - Identity
+      - Video
+    properties:
+
+      - type: OpenApi
+        url: openapi/bluesky-openapi.yml
+      - type: MockRestServer
+        url: http://localhost:8080/rest/bluesky-social-api/1.0.0
+      - type: MockMCPServer
+        url: http://localhost:8080/rest/bluesky-social-api/1.0.0/sse
+      - type: BackstageApi
+        url: backstage/bluesky-api-sandbox-backstage.yml
+
+common:
+
+  - type: Summary
+    data:
+
+      numberOfPaths: 168
+      numberOfOperations: 168
+      numberOfReadOperations: 93
+      numberOfWriteOperations: 75
+      numberOfSchemas: 230
+      numberOfResponses: 0
+      numberOfParameters: 0
+      numberOfExamples: 187
+      numberOfRequestBodies: 0
+      numberOfHeaders: 0
+      tags:
+        - Actor Profiles
+        - Administration
+        - Chat Actors
+        - Chat Moderation
+        - Content Labels
+        - Conversations
+        - Feeds
+        - Identity
+        - Labels
+        - Moderation
+        - Notifications
+        - Ozone Communication
+        - Ozone Moderation
+        - Ozone Server
+        - Ozone Sets
+        - Ozone Settings
+        - Ozone Signatures
+        - Ozone Team
+        - Repository
+        - Server
+        - Social Graph
+        - Sync
+        - Video
+      operations:
+        - Activate Deactivated Account
+        - Add Ozone Team Member
+        - Add Values To Set
+        - Apply Repository Batch Transaction
+        - Confirm Email
+        - Count Unread Notifications
+        - Create App Password
+        - Create Account
+        - Create Authentication Session
+        - Create Communication Template
+        - Create Invite Code
+        - Create Invite Codes
+        - Create Or Update Set Metadata
+        - Create Or Update Setting Option
+        - Create Repository Record
+        - Deactivate Account
+        - Delete Actor Account
+        - Delete Communication Template
+        - Delete Ozone Team Member
+        - Delete Repository Record
+        - Delete Session
+        - Delete Set
+        - Delete Set Values
+        - Delete Settings By Key
+        - Delete User Account
+        - Describe Account Migration Credentials
+        - Describe Server Capabilities
+        - Disable Account Invite Codes
+        - Disable Invite Codes
+        - Enumerate Actor Blocks
+        - Enumerate Actor Follows
+        - Enumerate Actor Lists
+        - Enumerate Actor Mutes
+        - Enumerate Followers
+        - Enumerate Known Followers
+        - Enumerate List Mutes
+        - Enumerate Notifications
+        - Enumerate Public Relationships
+        - Enumerate Similar Follows
+        - Find Actor Suggestions
+        - Find Actors By Search
+        - Find Correlated Threat Signatures
+        - Find Labels By AT-URI
+        - Find Posts By Search
+        - Find Repositories By Search
+        - Find Threat Signature Accounts
+        - Get Account Details
+        - Get Account Status
+        - Get Actor Author Feed
+        - Get Actor Likes
+        - Get Admin Invite Codes
+        - Get Admin Subject Status
+        - Get All Account Invite Codes
+        - Get Auth Session Info
+        - Get Communication Templates
+        - Get Current Account Preferences
+        - Get Feed Generator Details
+        - Get Feed Generator Info
+        - Get Feed Generators Info
+        - Get Home Timeline
+        - Get Labeler Services Info
+        - Get Like Records
+        - Get List Feed
+        - Get List View
+        - Get Moderation Event Details
+        - Get Moderation Statuses
+        - Get Ozone Server Configuration
+        - Get Post Quotes
+        - Get Post Reposts
+        - Get Post Thread
+        - Get Post Views
+        - Get Profile View
+        - Get Profile Views
+        - Get Record Details
+        - Get Repository Details
+        - Get Repository Info
+        - Get Search Accounts
+        - Get Selected Feed
+        - Get Set And Values
+        - Get Starter Pack View
+        - Get Starter Pack Views
+        - Get Suggested Actors
+        - Get Suggested Feeds
+        - Get Threat Signature Accounts
+        - Get Video Processing Status
+        - Get Video Upload Limits
+        - Import Repository CAR
+        - Initiate Account Deletion
+        - Initiate Password Reset
+        - List Actor Feed Generators
+        - List Actor Starter Packs
+        - List App Passwords
+        - List Blocked Lists
+        - List Moderation Events
+        - List Ozone Team Members
+        - List Repository Records
+        - List Settings
+        - Mark Notifications Seen
+        - Mute Account
+        - Mute Account List
+        - Mute Thread
+        - Query Available Sets
+        - Re-enable Account Invite Codes
+        - Refresh Authentication Session
+        - Register Push Notifications
+        - Request Email Confirmation
+        - Request Email Update Token
+        - Request Signed PLC Operation
+        - Reserve Repo Signing Key
+        - Reset Account Password
+        - Resolve Handle To DID
+        - Retrieve Missing Blobs
+        - Revoke App Password
+        - Send Account Email
+        - Send Feed Interactions
+        - Set Account Preferences
+        - Set Notification Preferences
+        - Sign PLC Operation
+        - Submit Moderation Report
+        - Sync Get Blob
+        - Sync Get Blocks
+        - Sync Get Checkout
+        - Sync Get Head
+        - Sync Get Latest Commit
+        - Sync Get Record
+        - Sync Get Repo
+        - Sync List Blobs
+        - Sync List Repos
+        - Sync Notify Of Update
+        - Take Moderation Action
+        - Unmute Account
+        - Unmute Account List
+        - Unmute Thread
+        - Update Account Email
+        - Update Account Handle
+        - Update Admin Account Email
+        - Update Admin Account Handle
+        - Update Admin Account Password
+        - Update Admin Subject Status
+        - Update Communication Template
+        - Update Ozone Team Member
+        - Upload Blob
+        - Upload Video
+        - Validate PLC Operation
+        - Write Repository Record
+
+  - type: GitHubHttpUrl
+    url: https://github.com/naftiko/bluesky-sandbox
+
+  - type: GitHubSshUrl
+    url: git@github.com:naftiko/bluesky-sandbox.git
+
+  - type: GitHubIssues
+    url: https://github.com/naftiko/bluesky-sandbox/issues
+
+  - type: GitHubDiscussions
+    url: https://github.com/orgs/naftiko/discussions
+
+  - type: Standards
+    data:
+
+      - name: APIs.json
+        description: This uses the APIs.json
+        docUrl: http://apisjson.org/
+
+      - name: OpenAPI
+        description: This uses OpenAPI to define access to all HTTP APIs.
+        docUrl: https://spec.openapis.org/oas/latest.html
+
+      - name: JSON Schema
+        description: This uses JSON Schema to define and validate all entities used.
+        docUrl: https://json-schema.org/specification
+
+      - name: Model Context Protocol
+        description: This uses MCP expressed as JSON schema to define each MCP server.
+        docUrl: https://modelcontextprotocol.io/
+
+      - name: Bruno Collections
+        description: This uses Bruno Collections to define each executable HTTP API integration.
+        docUrl: https://docs.usebruno.com/
+
+      - name: Bruno Environments
+        description: This uses Bruno Environments to store keys for each API to use in automation.
+        docUrl: https://docs.usebruno.com/secrets-management/overview
+
+      - name: API Commons
+        description: This uses an API Commons schema to define the plans and rate limits.
+        docUrl: https://apicommons.org/
+
+  - type: Services
+    data:
+
+      - aid: bluesky
+        name: Bluesky
+        description: >-
+          Bluesky is a decentralized social network built on the AT Protocol,
+          offering an open and federated alternative to traditional social
+          media platforms.
+        docUrl: https://docs.bsky.app/
+        apisJson: >-
+          https://raw.githubusercontent.com/api-evangelist/bluesky/refs/heads/main/apis.yml
+        loginUrl: https://bsky.app/
+
+maintainers:
+
+  - FN: Kin Lane
+    email: kinlane@naftiko.io
